@@ -1,0 +1,18 @@
+<div class="actions-section">
+  <div class="actions-card">
+    <div class="card-header"><i class="fas fa-tools"></i><h3>Quick Actions</h3></div>
+    <div class="actions-content">
+      <a href="{% url 'job_list' %}" class="action-button primary"><i class="fas fa-briefcase"></i> Browse Jobs</a>
+      <a href="{% url 'profile' %}" class="action-button secondary"><i class="fas fa-user-edit"></i> Edit Profile</a>
+      <div class="success-rate">
+        <p class="success-label">Success Rate</p>
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: {% widthratio approved_count total_applications 100 %}%"></div>
+          </div>
+          <span class="progress-text">{% widthratio approved_count total_applications 100 %}%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

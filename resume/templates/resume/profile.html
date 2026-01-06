@@ -1,0 +1,295 @@
+{% extends "resume/index.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<style>
+  /* Inline styles to force the blue theme and hover/transition effects */
+  .profile-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Main Profile Container - Outer Box Hover & Transition */
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.08) !important; /* Glass effect background */
+    backdrop-filter: blur(25px) !important;
+    border-radius: 25px !important;
+    border: 2px solid rgba(0, 207, 255, 0.2) !important; /* Initial blue border */
+    box-shadow: 0 0 20px rgba(0, 207, 255, 0.1) !important; /* Initial blue shadow */
+    transition: all 0.4s ease !important; /* Smooth transition */
+  }
+
+  .profile-container:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 0 30px rgba(0, 207, 255, 0.4), 0 0 70px rgba(108, 99, 255, 0.2) !important; /* Stronger blue glow */
+    border-color: rgba(0, 207, 255, 0.4) !important;
+  }
+
+  /* Profile Header (for the "Edit Profile" title) */
+  .profile-header {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(0, 207, 255, 0.2) !important;
+    border-radius: 25px !important;
+    padding: 3rem 2rem !important;
+    text-align: center !important;
+    box-shadow: 0 0 20px rgba(0, 207, 255, 0.2) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .profile-header:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 40px rgba(0, 207, 255, 0.3) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(0, 207, 255, 0.4) !important;
+  }
+
+  .profile-header h2 {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2) !important;
+    margin: 0 !important;
+  }
+
+  .profile-header p {
+    font-size: 1.1rem !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) !important;
+    margin: 0 !important;
+  }
+
+  /* Input Fields - Hover & Transition */
+  form input,
+  form textarea,
+  form input[type="file"] {
+    width: 100% !important;
+    margin-bottom: 15px !important;
+    padding: 12px 15px !important;
+    border-radius: 15px !important;
+    border: 2px solid rgba(0, 207, 255, 0.2) !important; /* Initial blue border */
+    background: rgba(0, 207, 255, 0.05) !important; /* Initial blue background */
+    color: #333 !important; /* Text color for input fields */
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important; /* Smooth transition */
+    box-shadow: 0 2px 8px rgba(0, 207, 255, 0.1) !important; /* Initial blue shadow */
+  }
+
+  form input::placeholder,
+  form textarea::placeholder {
+    color: #999 !important; /* Placeholder color */
+  }
+
+  form input:focus,
+  form textarea:focus,
+  form input[type="file"]:focus {
+    outline: none !important;
+    border-color: #00cfff !important; /* Bright blue on focus */
+    background: rgba(0, 207, 255, 0.1) !important; /* Slightly darker blue background */
+    box-shadow: 0 0 15px rgba(0, 207, 255, 0.3) !important; /* Stronger blue shadow */
+    transform: translateY(-2px) !important; /* Subtle lift on focus */
+  }
+
+  form input:hover,
+  form textarea:hover,
+  form input[type="file"]:hover {
+    border-color: #33e3ff !important; /* Lighter blue on hover */
+    background: rgba(0, 207, 255, 0.08) !important; /* Slightly darker blue background */
+    box-shadow: 0 4px 12px rgba(0, 207, 255, 0.2) !important; /* Medium blue shadow */
+    transform: translateY(-1px) !important; /* Subtle lift on hover */
+  }
+
+  /* Ensure file input button also matches theme */
+  input[type="file"]::-webkit-file-upload-button {
+    background: linear-gradient(135deg, #00cfff, #33e3ff) !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 15px !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 10px rgba(0, 207, 255, 0.3) !important;
+  }
+
+  input[type="file"]::-webkit-file-upload-button:hover {
+    background: linear-gradient(135deg, #00b4d8, #33e3ff) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 15px rgba(0, 207, 255, 0.4) !important;
+  }
+
+  /* Buttons - Hover & Transition */
+  .buttons .btn {
+    padding: 12px 24px !important;
+    border: none !important;
+    border-radius: 15px !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+    flex: 1 !important;
+  }
+
+  .edit-btn {
+    background: linear-gradient(135deg, #00cfff, #33e3ff, #6c63ff) !important;
+    color: white !important;
+    box-shadow: 0 8px 25px rgba(0, 207, 255, 0.3) !important;
+  }
+
+  .edit-btn:hover {
+    transform: scale(1.03) !important;
+    box-shadow: 0 0 25px rgba(0, 207, 255, 0.6) !important;
+    color: white !important;
+    text-decoration: none !important;
+  }
+
+  .cancel-btn { /* Renamed from logout-btn for clarity on this page */
+    background: rgba(239, 68, 68, 0.2) !important;
+    color: #fca5a5 !important;
+    border: 2px solid rgba(239, 68, 68, 0.3) !important;
+  }
+
+  .cancel-btn:hover {
+    background: rgba(239, 68, 68, 0.4) !important;
+    color: white !important;
+    transform: scale(1.03) !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4) !important;
+    text-decoration: none !important;
+  }
+
+  /* Input group icons and labels */
+  .form-group {
+    margin-bottom: 1rem !important;
+  }
+
+  .form-group label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    font-size: 0.9rem !important;
+    color: #333 !important; /* Label text color */
+    margin-bottom: 0.5rem !important;
+    font-weight: 600 !important;
+  }
+
+  .form-group label i {
+    color: #00cfff !important; /* Icon color */
+    font-size: 1.1rem !important;
+  }
+
+  /* General text color within the form box */
+  .profile-form-box {
+    color: #333 !important;
+  }
+
+  .profile-form-box h2, .profile-form-box p {
+    color: #333 !important;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .profile-container {
+      padding: 20px !important;
+      margin: 20px auto !important;
+    }
+    .profile-header {
+      padding: 2rem 1rem !important;
+    }
+    .profile-header h2 {
+      font-size: 1.5rem !important;
+    }
+    .buttons {
+      flex-direction: column !important;
+    }
+  }
+</style>
+
+<div class="profile-wrapper">
+  <div class="profile-container">
+    <!-- Profile Header for Edit Profile -->
+    <div class="profile-header">
+      <h2>Edit Profile</h2>
+      <p>Update your personal information and avatar</p>
+    </div>
+
+    <!-- Form Section -->
+    <div class="profile-form-box">
+      {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="id_first_name"><i class="fas fa-user"></i> First Name:</label>
+          <input type="text" name="first_name" id="id_first_name" value="{{ user.first_name|default:'' }}" placeholder="Your first name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="id_last_name"><i class="fas fa-user"></i> Last Name:</label>
+          <input type="text" name="last_name" id="id_last_name" value="{{ user.last_name|default:'' }}" placeholder="Your last name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="id_email"><i class="fas fa-envelope"></i> Email:</label>
+          <input type="email" name="email" id="id_email" value="{{ user.email|default:'' }}" placeholder="Your email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="id_bio"><i class="fas fa-info-circle"></i> Bio:</label>
+          <textarea name="bio" id="id_bio" rows="4" placeholder="Tell us about yourself...">{{ profile.bio|default:'' }}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="id_avatar"><i class="fas fa-image"></i> Avatar:</label>
+          <input type="file" name="avatar" id="id_avatar">
+          {% if profile.avatar %}
+            <p class="current-avatar-text" style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Current: <a href="{{ profile.avatar.url }}" target="_blank" style="color: #6c63ff; text-decoration: none;">{{ profile.avatar.name }}</a></p>
+          {% else %}
+            <p class="no-avatar-text" style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">No file chosen</p>
+          {% endif %}
+        </div>
+
+        <div class="buttons">
+          <button type="submit" class="btn edit-btn">
+            <i class="fas fa-save"></i> Save Changes
+          </button>
+          <a href="{% url 'profile' %}" class="btn cancel-btn">
+            <i class="fas fa-times-circle"></i> Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add fade-in animation delay
+    const fadeElements = document.querySelectorAll('.fade-in');
+    fadeElements.forEach((element, index) => {
+        element.style.animationDelay = `${index * 0.1}s`;
+    });
+});
+</script>
+{% endblock %}

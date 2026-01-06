@@ -1,0 +1,19 @@
+<div class="profile-section">
+  <div class="profile-card">
+    <div class="card-header"><i class="fas fa-user"></i> <h3>Profile</h3></div>
+    <div class="profile-details">
+      <div class="detail-item">
+        <div class="detail-icon user-icon"><i class="fas fa-user"></i></div>
+        <div><p class="detail-label">Username</p><p class="detail-value">{{ user.username }}</p></div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-icon email-icon"><i class="fas fa-envelope"></i></div>
+        <div><p class="detail-label">Email</p><p class="detail-value">{{ user.email }}</p></div>
+      </div>
+      <div class="detail-item full-width">
+        <div class="detail-icon calendar-icon"><i class="fas fa-calendar-alt"></i></div>
+        <div><p class="detail-label">Member Since</p><p class="detail-value">{{ user.date_joined|date:"F d, Y" }}</p></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+Django>=5.0
+mysqlclient
+django-jazzmin
+django-tinymce
+gunicorn
+whitenoise
+dj-database-url

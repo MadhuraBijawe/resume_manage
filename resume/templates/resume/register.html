@@ -1,0 +1,347 @@
+{% extends "resume/index.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+
+<style>
+/* FORCE BLUE THEME WITH INLINE STYLES - FIXED VERSION */
+.register-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: calc(100vh - 200px) !important;
+  padding: 2rem !important;
+  width: 100% !important;
+}
+
+.register-card {
+  display: flex !important;
+  width: 100% !important;
+  max-width: 1100px !important;
+  min-height: 600px !important; /* Ensure enough height for content */
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(25px) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  border: 3px solid #00cfff !important;
+  box-shadow: 0 0 40px rgba(0, 207, 255, 0.4) !important;
+  transition: all 0.4s ease !important;
+}
+
+.register-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 25px 70px rgba(0, 207, 255, 0.6) !important;
+  border-color: #33e3ff !important;
+}
+
+.register-form {
+  flex: 1 !important;
+  padding: 3rem !important; /* Increased padding for overall spacing */
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #333 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  /* Removed justify-content: center to allow content to flow from top */
+  overflow-y: auto !important;
+}
+
+.register-form h2 {
+  font-size: 2rem !important;
+  margin-top: 0 !important; /* Ensure no extra top margin */
+  margin-bottom: 0.5rem !important;
+  color: #333 !important; /* Ensure dark color for visibility */
+  font-weight: 700 !important;
+}
+
+.register-form .subtitle {
+  color: #666 !important; /* Ensure dark color for visibility */
+  font-size: 0.9rem !important;
+  margin-top: 0 !important; /* Ensure no extra top margin */
+  margin-bottom: 1.5rem !important;
+}
+
+.input-group {
+  display: flex !important;
+  align-items: center !important;
+  background: rgba(0, 207, 255, 0.08) !important;
+  border: 2px solid #00cfff !important;
+  padding: 0.8rem 1rem !important;
+  margin-bottom: 1rem !important;
+  border-radius: 25px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 10px rgba(0, 207, 255, 0.2) !important;
+}
+
+.input-group:hover {
+  box-shadow: 0 4px 20px rgba(0, 207, 255, 0.4) !important;
+  border-color: #33e3ff !important;
+  background: rgba(0, 207, 255, 0.12) !important;
+  transform: translateY(-2px) !important;
+}
+
+.input-group:focus-within {
+  box-shadow: 0 6px 25px rgba(0, 207, 255, 0.5) !important;
+  border-color: #6c63ff !important;
+  background: rgba(0, 207, 255, 0.15) !important;
+  transform: translateY(-2px) !important;
+}
+
+.input-group i {
+  color: #00cfff !important;
+  margin-right: 10px !important;
+  font-size: 1.1rem !important;
+}
+
+.input-group input {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: #333 !important;
+  width: 100% !important;
+  font-size: 1rem !important;
+  box-shadow: none !important;
+}
+
+.input-group input::placeholder {
+  color: #999 !important;
+}
+
+.input-group input:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.terms {
+  font-size: 0.85rem !important;
+  margin-bottom: 1rem !important;
+  color: #666 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+.terms input[type="checkbox"] {
+  accent-color: #00cfff !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.terms a {
+  color: #6c63ff !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+}
+
+.register-btn {
+  width: 100% !important;
+  padding: 0.8rem !important;
+  border: none !important;
+  border-radius: 25px !important;
+  background: linear-gradient(135deg, #00cfff, #33e3ff, #6c63ff) !important;
+  color: white !important;
+  font-weight: bold !important;
+  font-size: 1rem !important;
+  cursor: pointer !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  box-shadow: 0 10px 25px rgba(0, 207, 255, 0.4) !important;
+  transition: all 0.3s ease !important;
+  text-transform: uppercase !important;
+  margin-top: 0.5rem !important;
+}
+
+.register-btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 30px rgba(0, 207, 255, 0.6) !important;
+  background: linear-gradient(135deg, #00b4d8, #33e3ff, #5a67d8) !important;
+}
+
+.switch-login {
+  margin-top: 1rem !important;
+  font-size: 0.85rem !important;
+  color: #666 !important;
+  text-align: center !important;
+}
+
+.switch-login a {
+  color: #6c63ff !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+}
+
+.register-info {
+  flex: 1 !important;
+  background: linear-gradient(135deg, #00cfff, #33e3ff, #6c63ff) !important;
+  color: white !important;
+  padding: 3rem 2rem !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  position: relative !important;
+}
+
+.register-info::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%) !important;
+  z-index: 1 !important;
+}
+
+.register-info > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.image-placeholder {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.register-info h3 {
+  font-size: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+  font-weight: 700 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.register-info p {
+  font-size: 0.95rem !important;
+  opacity: 0.9 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) !important;
+  line-height: 1.5 !important;
+}
+
+/* Remove any default browser styling that might add orange/pink */
+* {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 768px) {
+  .register-card {
+    flex-direction: column !important;
+    max-width: 500px !important;
+    min-height: auto !important;
+  }
+
+  .register-form,
+  .register-info {
+    padding: 2rem !important;
+  }
+}
+</style>
+
+<div class="register-wrapper">
+  <div class="register-card">
+    <!-- Left: Form Section -->
+    <div class="register-form">
+      <h2>Create an Account</h2>
+      <p class="subtitle">Sign up to explore amazing opportunities</p>
+
+      {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <form method="POST">
+        {% csrf_token %}
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" name="first_name" placeholder="First Name" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" name="last_name" placeholder="Last Name" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-user-circle"></i>
+          <input type="text" name="username" placeholder="Username" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" name="email" placeholder="Email" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="password" placeholder="Password" required />
+        </div>
+        <div class="terms">
+          <input type="checkbox" required />
+          <label>I agree to <a href="#">Terms & Conditions</a></label>
+        </div>
+        <button type="submit" class="register-btn">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+        <p class="switch-login">Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
+      </form>
+    </div>
+
+    <!-- Right: Image Section -->
+    <div class="register-info">
+      <div class="image-placeholder">
+<!--        <svg width="200" height="150" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--          <rect x="50" y="30" width="100" height="90" rx="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>-->
+<!--          <circle cx="80" cy="55" r="12" fill="rgba(255,255,255,0.3)"/>-->
+<!--          <rect x="100" y="50" width="40" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>-->
+<!--          <rect x="100" y="60" width="30" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>-->
+<!--          <rect x="60" y="80" width="70" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>-->
+<!--          <rect x="60" y="90" width="60" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>-->
+<!--          <rect x="60" y="100" width="65" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>-->
+<!--          <circle cx="160" cy="45" r="15" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>-->
+<!--          <path d="M152,45 L158,51 L168,39" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>-->
+<!--        </svg>-->
+        <img src="{% static 'imgs/register2.png' %}" alt="Dashboard Illustration" >
+      </div>
+      <h3>Glad to see you!</h3>
+      <p>Join us and unlock your potential.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add smooth animations
+    const card = document.querySelector('.register-card');
+    const inputs = document.querySelectorAll('.input-group input');
+
+    // Animate card entrance
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    setTimeout(() => {
+        card.style.transition = 'all 0.6s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+    }, 100);
+
+    // Input focus animations
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'scale(1.02)';
+        });
+
+        input.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'scale(1)';
+        });
+    });
+});
+</script>
+{% endblock %}

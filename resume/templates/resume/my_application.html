@@ -1,0 +1,40 @@
+{% extends "resume/base.html" %}
+
+{% block content %}
+<div style="max-width: 800px; margin: auto; padding: 20px;">
+    <h2>My Applications</h2>
+
+    {% if applications %}
+        {% for application in applications %}
+            <div style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h4>{{ application.job.title }}</h4>
+                <p><strong>Company:</strong> {{ application.job.company|default:"Not specified" }}</p>
+                <p><strong>Location:</strong> {{ application.job.location }}</p>
+                <p><strong>Applied on:</strong> {{ application.applied_at|date:"M d, Y" }}</p>
+                <p><strong>Status:</strong>
+                    <span style="
+                        padding: 3px 8px;
+                        border-radius: 3px;
+                        font-size: 12px;
+                        {% if application.status == 'pending' %}background: #fff3cd; color: #856404;{% endif %}
+                        {% if application.status == 'reviewed' %}background: #d4edda; color: #155724;{% endif %}
+                        {% if application.status == 'accepted' %}background: #d1ecf1; color: #0c5460;{% endif %}
+                        {% if application.status == 'rejected' %}background: #f8d7da; color: #721c24;{% endif %}
+                    ">
+                        {{ application.get_status_display }}
+                    </span>
+                </p>
+                {% if application.resume %}
+                    <p><strong>Resume:</strong> <a href="{{ application.resume.url }}" target="_blank">View Resume</a></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p style="text-align: center; color: #666; margin-top: 50px;">
+            You haven't applied for any jobs yet.
+            <br><br>
+            <a href="{% url 'job_list' %}" class="btn">Browse Jobs</a>
+        </p>
+    {% endif %}
+</div>
+{% endblock %}

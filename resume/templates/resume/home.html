@@ -1,0 +1,225 @@
+{% extends 'resume/index.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/landing.css' %}">
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-5">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Streamline Your
+                        <span class="text-primary">Resume Management</span>
+                    </h1>
+                    <p class="hero-description">
+                        Organize, manage, and track resumes efficiently with our comprehensive
+                        Resume Management System. Perfect for HR teams, recruiters, and businesses.
+                    </p>
+                    <div class="hero-buttons">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg me-3">
+                                Go to Dashboard
+                            </a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-lg me-3">
+                                Get Started
+                            </a>
+                            <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg">
+                                Sign Up
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 d-flex align-items-center justify-content-center">
+                <div class="hero-image">
+                    <img src="{% static 'imgs/home1.png' %}" alt="Resume Management">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="section-title">Why Choose Our System?</h2>
+                <p class="section-subtitle">Powerful features to manage resumes effectively</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h4>Easy Upload</h4>
+                    <p>Upload and store resumes in various formats including PDF, DOC, and more.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h4>Smart Search</h4>
+                    <p>Find the right candidates quickly with advanced search and filtering options.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h4>Analytics</h4>
+                    <p>Track and analyze resume submissions with detailed reports and insights.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 col-6">
+                <div class="stat-item">
+                    <h3 class="stat-number">1000+</h3>
+                    <p class="stat-label">Resumes Managed</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-item">
+                    <h3 class="stat-number">50+</h3>
+                    <p class="stat-label">Companies</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-item">
+                    <h3 class="stat-number">99%</h3>
+                    <p class="stat-label">Satisfaction Rate</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-item">
+                    <h3 class="stat-number">24/7</h3>
+                    <p class="stat-label">Support</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works-section py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Simple steps to get started</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Sign Up</h4>
+                    <p>Create your account and set up your profile in minutes.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Upload Resumes</h4>
+                    <p>Start uploading and organizing resumes with our intuitive interface.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Manage & Track</h4>
+                    <p>Search, filter, and manage your resume database efficiently.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <div class="cta-content">
+<!--                    <h2 class="cta-title">Ready to Get Started?</h2>-->
+<!--                    <p class="cta-description">-->
+<!--                        Join thousands of companies already using our Resume Management System-->
+<!--                    </p>-->
+<!--                    <div class="resume-marquee mb-4">-->
+<!--    <div class="marquee-track">-->
+<!--        <img src="{% static 'imgs/marquee1.png' %}" alt="Resume" class="resume-icon">-->
+<!--        <img src="{% static 'imgs/marquee2.png' %}" alt="Resume" class="resume-icon">-->
+<!--        <img src="{% static 'imgs/marquee3.png' %}" alt="Resume" class="resume-icon">-->
+<!--        <img src="{% static 'imgs/marquee4.png' %}" alt="Resume" class="resume-icon">-->
+<!--        <img src="{% static 'imgs/marquee5.png' %}" alt="Resume" class="resume-icon">-->
+<!--        &lt;!&ndash; repeat if needed for smooth loop &ndash;&gt;-->
+<!--    </div>-->
+<!--</div>-->
+<!--                    <div class="resume-marquee-container mb-4">-->
+<!--  <div class="resume-marquee-track">-->
+<!--    {% for i in "12345" %}-->
+<!--      <img src="{% static 'imgs/que1.png' %}" alt="Resume" class="resume-icon">-->
+<!--      <img src="{% static 'imgs/que2.png' %}" alt="Resume" class="resume-icon">-->
+<!--      <img src="{% static 'imgs/que3.png' %}" alt="Resume" class="resume-icon">-->
+<!--      <img src="{% static 'imgs/que4.png' %}" alt="Resume" class="resume-icon">-->
+<!--      <img src="{% static 'imgs/que5.png' %}" alt="Resume" class="resume-icon">-->
+<!--    {% endfor %}-->
+<!--  </div>-->
+<!--</div>-->
+<div class="resume-marquee-container mb-5">
+  <div class="resume-marquee-track">
+    {% for i in "12345" %}
+      <div class="resume-card">
+        <img src="{% static 'imgs/que1.png' %}" alt="Resume">
+      </div>
+      <div class="resume-card">
+        <img src="{% static 'imgs/que2.png' %}" alt="Resume">
+      </div>
+      <div class="resume-card">
+        <img src="{% static 'imgs/que3.png' %}" alt="Resume">
+      </div>
+      <div class="resume-card">
+        <img src="{% static 'imgs/que4.png' %}" alt="Resume">
+      </div>
+      <div class="resume-card">
+        <img src="{% static 'imgs/que5.png' %}" alt="Resume">
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg">
+                            Go to Dashboard
+                        </a>
+                    {% else %}
+                        <a href="{% url 'register' %}" class="btn btn-light btn-lg me-3">
+                            Start Free Trial
+                        </a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg">
+                            Login
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

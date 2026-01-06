@@ -1,0 +1,60 @@
+{% extends "resume/base.html" %}
+
+{% block content %}
+<div style="max-width: 600px; margin: auto; padding: 20px;">
+    <h2>Apply for: {{ job.title }}</h2>
+
+    <div style="background: #f5f5f5; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+        <h4>{{ job.title }}</h4>
+        <p><strong>Location:</strong> {{ job.location }}</p>
+        <p>{{ job.description|safe|truncatewords:30 }}</p>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 15px;">
+            <label for="id_resume" style="display: block; margin-bottom: 5px; font-weight: bold;">
+                Resume *
+            </label>
+            {{ form.resume }}
+            {% if form.resume.help_text %}
+                <small style="color: #666;">{{ form.resume.help_text }}</small>
+            {% endif %}
+            {% if form.resume.errors %}
+                <div style="color: red; font-size: 12px;">{{ form.resume.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="id_phone" style="display: block; margin-bottom: 5px; font-weight: bold;">
+                Phone Number *
+            </label>
+            {{ form.phone }}
+            {% if form.phone.help_text %}
+                <small style="color: #666;">{{ form.phone.help_text }}</small>
+            {% endif %}
+            {% if form.phone.errors %}
+                <div style="color: red; font-size: 12px;">{{ form.phone.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="id_cover_letter" style="display: block; margin-bottom: 5px; font-weight: bold;">
+                Cover Letter (Optional)
+            </label>
+            {{ form.cover_letter }}
+            {% if form.cover_letter.errors %}
+                <div style="color: red; font-size: 12px;">{{ form.cover_letter.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn" style="background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+                Submit Application
+            </button>
+            <a href="{% url 'job_list' %}" style="margin-left: 10px; text-decoration: none; color: #666;">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

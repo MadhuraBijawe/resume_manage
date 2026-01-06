@@ -1,0 +1,91 @@
+{% extends 'resume/index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <!-- Welcome + Logout -->
+    <div class="row mb-4">
+        <div class="col-md-10">
+            <h6>Welcome {{ user.username }}</h6>
+        </div>
+        <div class="col-md-2 text-end">
+            <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+        </div>
+    </div>
+
+    <!-- Heading -->
+    <div class="row mb-3">
+        <div class="col-md-12 text-center">
+            <h2>Update Resume Information</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Illustration -->
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <img src="{% static 'imgs/resume-banner.png' %}" class="img-thumbnail w-100 h-100" alt="Resume Edit">
+        </div>
+
+        <!-- Edit Resume Form -->
+        <div class="col-md-6">
+            {% if messages %}
+            <div class="container mb-3">
+                {% for m in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ m }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data" action="{% url 'edit_resume' resume.id %}">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-control" name="name" value="{{ resume.name }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" value="{{ resume.email }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Phone</label>
+                    <input type="text" class="form-control" name="phone" value="{{ resume.phone }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Job Position</label>
+                    <input type="text" class="form-control" name="position" value="{{ resume.position }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Skills</label>
+                    <textarea class="form-control" name="skills" rows="3" required>{{ resume.skills }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Current Resume File:</label><br>
+                    {% if resume.resume_file %}
+                        <a href="{{ resume.resume_file.url }}" target="_blank">View Current Resume</a>
+                    {% else %}
+                        <span>No file uploaded</span>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Upload New Resume (optional)</label>
+                    <input type="file" class="form-control" name="resume_file" accept=".pdf">
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary w-25">Update</button>
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary w-25 ms-2">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

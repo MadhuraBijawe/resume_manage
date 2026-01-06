@@ -1,0 +1,203 @@
+{% extends "resume/index.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<!-- Dashboard Wrapper -->
+<div class="dashboard-wrapper">
+  <div class="dashboard-container">
+    <!-- Header -->
+    <div class="dashboard-header fade-in">
+      <div class="user-avatar">
+        <span class="avatar-initials">{{ user.username|first|upper }}{{ user.last_name|first|upper|default:user.username|slice:"1:2"|upper }}</span>
+      </div>
+      <div class="header-content">
+        <h1>Welcome back, {{ user.username }}!</h1>
+        <p>Here's your application overview</p>
+      </div>
+    <div class="header-illustration">
+      <img src="{% static 'imgs/dash.png' %}" alt="Dashboard Illustration">
+    </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid fade-in">
+      <div class="stat-card">
+        <div class="stat-content">
+          <div>
+            <div class="stat-label">Total Applications</div>
+            <div class="stat-value">{{ total_applications|default:0 }}</div>
+          </div>
+          <div class="stat-icon total-applications">
+            <i class="fas fa-file-alt"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-content">
+          <div>
+            <div class="stat-label">Pending</div>
+            <div class="stat-value pending-value">{{ pending_count|default:0 }}</div>
+          </div>
+          <div class="stat-icon pending-applications">
+            <i class="fas fa-clock"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-content">
+          <div>
+            <div class="stat-label">Approved</div>
+            <div class="stat-value approved-value">{{ approved_count|default:0 }}</div>
+          </div>
+          <div class="stat-icon approved-applications">
+            <i class="fas fa-check-circle"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-content">
+          <div>
+            <div class="stat-label">Rejected</div>
+            <div class="stat-value rejected-value">{{ rejected_count|default:0 }}</div>
+          </div>
+          <div class="stat-icon rejected-applications">
+            <i class="fas fa-times-circle"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid: Profile + Actions -->
+    <div class="main-content-grid">
+      <!-- Profile Card -->
+      <div class="profile-card">
+        <div class="card-header">
+          <i class="fas fa-user"></i>
+          <h3>Profile Information</h3>
+        </div>
+        <div class="profile-details">
+          <div class="detail-item">
+            <div class="detail-icon user-icon">
+              <i class="fas fa-user"></i>
+            </div>
+            <div>
+              <div class="detail-label">Username</div>
+              <div class="detail-value">{{ user.username }}</div>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon email-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <div class="detail-label">Email</div>
+              <div class="detail-value">{{ user.email|default:"Not provided" }}</div>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon calendar-icon">
+              <i class="fas fa-calendar"></i>
+            </div>
+            <div>
+              <div class="detail-label">Member Since</div>
+              <div class="detail-value">{{ user.date_joined|date:"M d, Y" }}</div>
+            </div>
+          </div>
+
+          <div class="detail-item full-width">
+            <div class="detail-icon user-icon">
+              <i class="fas fa-info-circle"></i>
+            </div>
+            <div>
+              <div class="detail-label">Full Name</div>
+              <div class="detail-value">{{ user.first_name }} {{ user.last_name|default:"Not provided" }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions Card -->
+      <div class="actions-card">
+        <div class="card-header">
+          <i class="fas fa-bolt"></i>
+          <h3>Quick Actions</h3>
+        </div>
+        <div class="actions-content">
+          <a href="#" class="action-button primary">
+            <i class="fas fa-plus"></i>
+            New Application
+          </a>
+          <a href="{% url 'job_list' %}" class="action-button secondary">
+            <i class="fas fa-search"></i>
+            Browse Jobs
+          </a>
+          <a href="{% url 'profile' %}" class="action-button secondary">
+            <i class="fas fa-user-edit"></i>
+            Edit Profile
+          </a>
+          <a href="#" class="action-button secondary">
+            <i class="fas fa-download"></i>
+            Download Resume
+          </a>
+
+          <div class="success-rate">
+            <div class="progress-container">
+              <span class="progress-text">Success Rate</span>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 75%"></div>
+              </div>
+              <span class="progress-text">75%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-card">
+      <div class="card-header">
+        <i class="fas fa-chart-pie"></i>
+        <h3>Application Summary</h3>
+      </div>
+      <div class="summary-grid">
+        <div class="summary-item total">
+          <i class="fas fa-file-alt"></i>
+          <span>Total Applications</span>
+          <span class="summary-badge">{{ total_applications|default:0 }}</span>
+        </div>
+        <div class="summary-item pending">
+          <i class="fas fa-clock"></i>
+          <span>Pending Review</span>
+          <span class="summary-badge">{{ pending_count|default:0 }}</span>
+        </div>
+        <div class="summary-item approved">
+          <i class="fas fa-check-circle"></i>
+          <span>Approved</span>
+          <span class="summary-badge">{{ approved_count|default:0 }}</span>
+        </div>
+        <div class="summary-item rejected">
+          <i class="fas fa-times-circle"></i>
+          <span>Rejected</span>
+          <span class="summary-badge">{{ rejected_count|default:0 }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Add fade-in animation delay
+document.addEventListener('DOMContentLoaded', function() {
+    const fadeElements = document.querySelectorAll('.fade-in');
+    fadeElements.forEach((element, index) => {
+        element.style.animationDelay = `${index * 0.1}s`;
+    });
+});
+</script>
+{% endblock %}
