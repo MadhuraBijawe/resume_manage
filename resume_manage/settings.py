@@ -79,12 +79,11 @@ WSGI_APPLICATION = 'resume_manage.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'resume_db',     # Your MySQL DB name
-        'USER': 'root',          # Replace with your MySQL username
-        'PASSWORD': 'Madhurabijawe95@',  # Replace with your MySQL password
+        'NAME': 'resume_db',
+        'USER': 'root',
+        'PASSWORD': 'Madhurabijawe95@',
         'HOST': 'localhost',
         'PORT': '3306',
-    }
     }
 }
 
